@@ -13,7 +13,12 @@
   "author": "Julio Antony",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "concurrently": "^7.4.0",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment-timezone": "^0.5.37",
     "mongoose": "^6.6.2",
     "nodemon": "^2.0.20"
   }
