@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const auth = require('../../middleware/auth');
 require('dotenv').config();
 
@@ -103,10 +103,10 @@ router.put('/:id', auth, async (req, res) => {
 
 
 //Delete user
-router.delete('/', auth, async (req, res) => {
-    const { id } = req.body
+router.delete('/:id', auth, async (req, res) => {
+    const id = req.body._id
     try {
-        const user = await Users.findById({ id })
+        const user = await Users.findOne({ id })
 
         if (!user) {
             res.status(404).send({ msg: "Pegawai tidak ditemukan." })

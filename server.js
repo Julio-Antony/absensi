@@ -30,7 +30,9 @@ app.use(express.urlencoded({
     parameterLimit: 50000
 }));
 
+app.use('/api/auth', require('./routes/api/authController'));
 app.use('/api/users', require('./routes/api/userController'));
+app.use('/api/absensi', require('./routes/api/absensiController'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
