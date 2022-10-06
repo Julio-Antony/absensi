@@ -1,12 +1,9 @@
 const { Schema, model } = require('mongoose');
 
 const AbsensiSchema = new Schema({
-    nip: {
-        type: String,
-        required: true
-    },
-    user: {
-        type: String,
+    user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
     },
     jam_msk: {
         type: Date
