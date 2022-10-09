@@ -18,7 +18,6 @@
   "author": "Julio Antony",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "clsx": "^1.2.1",
     "concurrently": "^7.4.0",

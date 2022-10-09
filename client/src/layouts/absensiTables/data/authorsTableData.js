@@ -50,28 +50,26 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "author", accessor: "author", width: "45%", align: "left" },
-      { Header: "function", accessor: "function", align: "left" },
-      { Header: "status", accessor: "status", align: "center" },
-      { Header: "employed", accessor: "employed", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
+      { Header: "nama", accessor: "nama", width: "45%", align: "left" },
+      { Header: "keterangan", accessor: "keterangan", align: "center" },
+      { Header: "jam masuk", accessor: "jamMasuk", align: "center" },
+      { Header: "jam keluar", accessor: "jamKeluar", align: "center" },
     ],
 
     rows: [
       {
-        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-        function: <Job title="Manager" description="Organization" />,
-        status: (
+        nama: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
+        keterangan: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
           </MDBox>
         ),
-        employed: (
+        jamMasuk: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             23/04/18
           </MDTypography>
         ),
-        action: (
+        jamKeluar: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             Edit
           </MDTypography>
