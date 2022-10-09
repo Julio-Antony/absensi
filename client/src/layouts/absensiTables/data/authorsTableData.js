@@ -52,17 +52,17 @@ export default function data() {
         nama: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
         keterangan: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
+            <MDBadge badgeContent="hadir" color="success" variant="gradient" size="sm" />
           </MDBox>
         ),
         jamMasuk: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
+            06:38
           </MDTypography>
         ),
         jamKeluar: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            16:05
           </MDTypography>
         ),
       },
@@ -70,17 +70,17 @@ export default function data() {
         nama: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
         keterangan: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
+            <MDBadge badgeContent="izin" color="warning" variant="gradient" size="sm" />
           </MDBox>
         ),
         jamMasuk: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            11/01/19
+            -
           </MDTypography>
         ),
         jamKeluar: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            -
           </MDTypography>
         ),
       },
@@ -88,17 +88,17 @@ export default function data() {
         nama: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
         keterangan: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
+            <MDBadge badgeContent="hadir" color="success" variant="gradient" size="sm" />
           </MDBox>
         ),
         jamMasuk: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            19/09/17
+            06:28
           </MDTypography>
         ),
         jamKeluar: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            16:15
           </MDTypography>
         ),
       },
@@ -106,17 +106,17 @@ export default function data() {
         nama: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
         keterangan: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
+            <MDBadge badgeContent="hadir" color="success" variant="gradient" size="sm" />
           </MDBox>
         ),
         jamMasuk: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            24/12/08
+            06:48
           </MDTypography>
         ),
         jamKeluar: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            16:03
           </MDTypography>
         ),
       },
@@ -124,17 +124,17 @@ export default function data() {
         nama: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
         keterangan: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
+            <MDBadge badgeContent="Alfa" color="error" variant="gradient" size="sm" />
           </MDBox>
         ),
         jamMasuk: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            04/10/21
+            -
           </MDTypography>
         ),
         jamKeluar: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            -
           </MDTypography>
         ),
       },
@@ -142,17 +142,17 @@ export default function data() {
         nama: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
         keterangan: (
           <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
+            <MDBadge badgeContent="hadir" color="success" variant="gradient" size="sm" />
           </MDBox>
         ),
         jamMasuk: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            14/09/20
+            06:40
           </MDTypography>
         ),
         jamKeluar: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            16:09
           </MDTypography>
         ),
       },

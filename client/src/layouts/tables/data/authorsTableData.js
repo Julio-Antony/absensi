@@ -19,7 +19,6 @@ Coded by www.creative-tim.com
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
-import MDBadge from "components/MDBadge";
 
 // Images
 import team2 from "assets/images/team-2.jpg";
@@ -51,124 +50,124 @@ export default function data() {
   return {
     columns: [
       { Header: "author", accessor: "author", width: "45%", align: "left" },
-      { Header: "function", accessor: "function", align: "left" },
-      { Header: "status", accessor: "status", align: "center" },
-      { Header: "employed", accessor: "employed", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
+      { Header: "NIP", accessor: "nip", align: "left" },
+      { Header: "jabatan", accessor: "jabatan", align: "center" },
+      { Header: "alamat", accessor: "alamat", align: "center" },
+      { Header: "aksi", accessor: "aksi", align: "center" },
     ],
 
     rows: [
       {
         author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-        function: <Job title="Manager" description="Organization" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
+        nip: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            23/04/18
+            31180397
           </MDTypography>
         ),
-        action: (
+        jabatan: <Job title="Pegawai" />,
+        alamat: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            Kp. Mariuk
+          </MDTypography>
+        ),
+        aksi: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            Edit | Hapus
           </MDTypography>
         ),
       },
       {
         author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
+        nip: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            11/01/19
+            31180398
           </MDTypography>
         ),
-        action: (
+        jabatan: <Job title="Admin" />,
+        alamat: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            Kp. Gang Buntu
+          </MDTypography>
+        ),
+        aksi: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            Edit | Hapus
           </MDTypography>
         ),
       },
       {
         author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
-        function: <Job title="Executive" description="Projects" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
+        nip: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            19/09/17
+            31180714
           </MDTypography>
         ),
-        action: (
+        jabatan: <Job title="Pegawai" />,
+        alamat: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            Tambun Selatan
+          </MDTypography>
+        ),
+        aksi: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            Edit | Hapus
           </MDTypography>
         ),
       },
       {
         author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
+        nip: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            24/12/08
+            31180913
           </MDTypography>
         ),
-        action: (
+        jabatan: <Job title="Pegawai" />,
+        alamat: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            Gandasari
+          </MDTypography>
+        ),
+        aksi: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            Edit | Hapus
           </MDTypography>
         ),
       },
       {
         author: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
-        function: <Job title="Manager" description="Executive" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
+        nip: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            04/10/21
+            31180487
           </MDTypography>
         ),
-        action: (
+        jabatan: <Job title="Pegawai" />,
+        alamat: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            Kp. Mariuk
+          </MDTypography>
+        ),
+        aksi: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            Edit | Hapus
           </MDTypography>
         ),
       },
       {
         author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
+        nip: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            14/09/20
+            31180339
           </MDTypography>
         ),
-        action: (
+        jabatan: <Job title="Pegawai" />,
+        alamat: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+            Cibitung
+          </MDTypography>
+        ),
+        aksi: (
+          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+            Edit | Hapus
           </MDTypography>
         ),
       },

@@ -41,11 +41,11 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="leaderboard"
                 title="Kehadiran Pegawai"
-                count="2,300"
+                count="23"
                 percentage={{
                   color: "success",
                   amount: "+3%",
-                  label: "than last month",
+                  label: "dari hari sebelumnya",
                 }}
               />
             </MDBox>
@@ -56,11 +56,11 @@ function Dashboard() {
                 color="success"
                 icon="group"
                 title="Pegawai"
-                count="34k"
+                count="26"
                 percentage={{
                   color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
+                  amount: "",
+                  label: "Just updated",
                 }}
               />
             </MDBox>
@@ -71,7 +71,7 @@ function Dashboard() {
                 color="primary"
                 icon="admin_panel_settings"
                 title="Admin"
-                count="+91"
+                count="2"
                 percentage={{
                   color: "success",
                   amount: "",
@@ -90,10 +90,10 @@ function Dashboard() {
                   title="Persentasi Kehadiran Pegawai"
                   description={
                     <>
-                      (<strong>+15%</strong>) increase in today sales.
+                      (<strong>+15%</strong>) lebih baik dari hari sebelumnya.
                     </>
                   }
-                  date="updated 4 min ago"
+                  date="diperbarui 4 menit yang lalu"
                   chart={sales}
                 />
               </MDBox>
