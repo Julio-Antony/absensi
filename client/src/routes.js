@@ -39,6 +39,7 @@ Coded by www.creative-tim.com
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Profile from "layouts/profile";
+import AbsensiTables from "layouts/absensiTables";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -58,7 +59,7 @@ const routes = [
     key: "kehadiran",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/kehadiran",
-    component: <Tables />,
+    component: <AbsensiTables />,
   },
   {
     type: "collapse",
