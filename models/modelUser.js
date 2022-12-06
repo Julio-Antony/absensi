@@ -8,6 +8,12 @@ const UserSchema = new Schema({
     nama: {
         type: String,
     },
+    foto: {
+        type: String
+    },
+    jabatan: {
+        type: String
+    },
     password: {
         type: String
     },
@@ -18,7 +24,7 @@ const UserSchema = new Schema({
         type: String
     },
     tgl_lhr: {
-        type: Date
+        type: String
     },
     jns_klmn: {
         type: String

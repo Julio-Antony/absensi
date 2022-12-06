@@ -25,6 +25,7 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Icon from "@mui/material/Icon";
+// import { Person } from "@mui/icons-material";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -35,10 +36,10 @@ import MDAvatar from "components/MDAvatar";
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images
-import tina from "assets/images/tina.jpeg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
+import Form from "../Form";
 
-function Header({ children }) {
+function Header({ children, defFoto, defNama, defJabatan, defNip, defTempat, defTanggal, defEmail, defTelp, defAlamat }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
 
@@ -94,15 +95,20 @@ function Header({ children }) {
       >
         <Grid container spacing={3} alignItems="center">
           <Grid item>
-            <MDAvatar src={tina} alt="profile-image" size="xl" shadow="sm" />
+            <MDAvatar
+              src={`data:image/png;base64,${defFoto}`}
+              alt="profile-image"
+              size="xl"
+              shadow="sm"
+            />
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Tina Okta Riyanti
+                {defNama}
               </MDTypography>
-              <MDTypography variant="button" color="text" fontWeight="regular">
-                Admin
+              <MDTypography variant="button" color="text" fontWeight="regular" textTransform="capitalize">
+                {defJabatan}
               </MDTypography>
             </MDBox>
           </Grid>
@@ -129,7 +135,17 @@ function Header({ children }) {
             </AppBar>
           </Grid>
         </Grid>
-        {children}
+        {tabValue === 0 ? children :
+          <Form
+            defNama={defNama}
+            defNip={defNip}
+            defTempat={defTempat}
+            defTanggal={defTanggal}
+            defEmail={defEmail}
+            defTelp={defTelp}
+            defAlamat={defAlamat}
+            defFoto={defFoto}
+          />}
       </Card>
     </MDBox>
   );
@@ -138,11 +154,29 @@ function Header({ children }) {
 // Setting default props for the Header
 Header.defaultProps = {
   children: "",
+  defFoto: "",
+  defJabatan: "",
+  defNama: "",
+  defNip: "",
+  defTempat: "",
+  defTanggal: "",
+  defEmail: "",
+  defTelp: "",
+  defAlamat: "",
 };
 
 // Typechecking props for the Header
 Header.propTypes = {
   children: PropTypes.node,
+  defFoto: PropTypes.string,
+  defJabatan: PropTypes.string,
+  defNama: PropTypes.string,
+  defNip: PropTypes.string,
+  defTempat: PropTypes.string,
+  defTanggal: PropTypes.string,
+  defEmail: PropTypes.string,
+  defTelp: PropTypes.string,
+  defAlamat: PropTypes.string,
 };
 
 export default Header;

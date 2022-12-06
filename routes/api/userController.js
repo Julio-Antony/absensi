@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 require('dotenv').config();
 
@@ -24,9 +25,25 @@ router.get('/', auth, async (req, res) => {
 })
 
 //Get Single user
-router.get('/:id', auth, async (req, res) => {
+router.get('/single/:id', auth, async (req, res) => {
     try {
-        const user = await Users.findOne(req.user._id)
+        const user = await Users.findOne({ _id: req.params.id })
+
+        if (!user) {
+            res.status(404).json({ msg: "Pegawai tidak ditemukan." })
+        }
+
+        res.json(user)
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+})
+
+//Get my Profile
+router.get('/single', auth, async (req, res) => {
+    try {
+        const user = await Users.findOne({ _id: req.user.id })
 
         if (!user) {
             res.status(404).json({ msg: "Pegawai tidak ditemukan." })
@@ -54,6 +71,7 @@ router.post('/', async (req, res) => {
             nama: nama,
             password: bcrypt.hashSync(password, 10),
             foto: Image,
+            jabatan: "pegawai",
             email: email,
             tmpt_lhr: tmpt_lhr,
             tgl_lhr: tgl_lhr,
@@ -74,17 +92,47 @@ router.post('/', async (req, res) => {
 
 //Update user
 router.put('/:id', auth, async (req, res) => {
-    const id = req.body._id || req.user._id
-    const { nama, email, tmpt_lhr, tgl_lhr, jns_klmn, telp, alamat } = req.body;
+    const { nip, nama, email, tmpt_lhr, tgl_lhr, jns_klmn, telp, alamat, foto, jabatan } = req.body;
     try {
-        const user = await Users.findOne({ id })
+        const user = await Users.findOne({ _id: req.params.id })
 
         if (!user) {
             res.status(404).send({ msg: "Pegawai tidak ditemukan." })
         }
 
+        user.nip = nip || user.nip
         user.nama = nama || user.nama
-        // user.foto = Image,
+        user.foto = foto
+        user.email = email || user.email
+        user.tmpt_lhr = tmpt_lhr || user.tmpt_lhr
+        user.tgl_lhr = tgl_lhr || user.tgl_lhr
+        user.jns_klmn = jns_klmn || user.jns_klmn
+        user.telp = telp || user.telp
+        user.alamat = alamat || user.alamat
+        user.jabatan = jabatan || user.jabatan
+
+        await user.save()
+
+        res.status(200).send({ msg: "Berhasil memperbarui data" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+})
+
+//Update my profile
+router.put('/', auth, async (req, res) => {
+    const { nip, nama, email, tmpt_lhr, tgl_lhr, jns_klmn, telp, alamat, foto } = req.body;
+    try {
+        const user = await Users.findOne({ _id: req.user.id })
+
+        if (!user) {
+            res.status(404).send({ msg: "Pegawai tidak ditemukan." })
+        }
+
+        user.nip = nip || user.nip
+        user.nama = nama || user.nama
+        user.foto = foto
         user.email = email || user.email
         user.tmpt_lhr = tmpt_lhr || user.tmpt_lhr
         user.tgl_lhr = tgl_lhr || user.tgl_lhr
@@ -93,7 +141,21 @@ router.put('/:id', auth, async (req, res) => {
         user.alamat = alamat || user.alamat
 
         await user.save()
-        res.status(200).send({ msg: "Berhasil memperbarui data" })
+
+        // Return jsonwebtoken
+        jwt.sign(
+            {
+                user: {
+                    id: user.id,
+                },
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: 360000 },
+            (err, token) => {
+                if (err) throw err;
+                res.status(200).send({ msg: "Berhasil memperbarui data", token })
+            }
+        );
 
     } catch (err) {
         console.error(err.message);
@@ -104,9 +166,9 @@ router.put('/:id', auth, async (req, res) => {
 
 //Delete user
 router.delete('/:id', auth, async (req, res) => {
-    const id = req.body._id
+    const id = req.params.id
     try {
-        const user = await Users.findOne({ id })
+        const user = await Users.findById(id)
 
         if (!user) {
             res.status(404).send({ msg: "Pegawai tidak ditemukan." })

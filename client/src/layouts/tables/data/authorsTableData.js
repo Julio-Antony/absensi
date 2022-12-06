@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
+/* eslint no-underscore-dangle: 0 */
 /**
 =========================================================
 * Material Dashboard 2 React - v2.1.0
@@ -21,14 +22,58 @@ import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 
 // Images
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+import unknown from "layouts/profile/data/foto";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import swal from "sweetalert";
 
 export default function data() {
+  const [pegawai, setPegawai] = useState([])
+  const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
+
+  useEffect(() => {
+    axios
+      .get("/api/users", { headers: { "x-auth-token": token } })
+      .then((res) => {
+        setPegawai(res.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          navigate("/");
+        }
+      });
+  }, [token]);
+
+  const onDelete = (id) => {
+    swal({
+      title: "Apa anda yakin menghapus pengumuman ini ?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .delete(`/api/users/${id}`, {
+            headers: { "x-auth-token": token },
+          })
+          .then((res) => {
+            const newData = pegawai.filter((user) => user._id !== id);
+            setPegawai(newData);
+            swal(res.data.msg, {
+              icon: "success",
+            });
+          });
+      } else {
+        swal("Data gagal dihapus");
+      }
+    });
+  }
+
   const Author = ({ image, name, email }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
-      <MDAvatar src={image} name={name} size="sm" />
+      <MDAvatar src={`data:image/png;base64,${image}`} name={name} size="sm" />
       <MDBox ml={2} lineHeight={1}>
         <MDTypography display="block" variant="button" fontWeight="medium">
           {name}
@@ -49,128 +94,41 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "author", accessor: "author", width: "45%", align: "left" },
+      { Header: "Pegawai", accessor: "author", width: "45%", align: "left" },
       { Header: "NIP", accessor: "nip", align: "left" },
       { Header: "jabatan", accessor: "jabatan", align: "center" },
       { Header: "alamat", accessor: "alamat", align: "center" },
       { Header: "aksi", accessor: "aksi", align: "center" },
     ],
 
-    rows: [
-      {
-        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-        nip: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            31180397
+    rows: pegawai.map((item) => ({
+      author: <Author image={item.foto || unknown} name={item.nama} email={item.email} />,
+      nip: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {item.nip}
+        </MDTypography>
+      ),
+      jabatan: <Job title={item.jabatan} />,
+      alamat: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {item.alamat || "-"}
+        </MDTypography>
+      ),
+      aksi: (
+        <>
+          <MDTypography component="a" href={`/editPegawai/${item._id}`} variant="caption" color="text" fontWeight="medium">
+            Edit
           </MDTypography>
-        ),
-        jabatan: <Job title="Pegawai" />,
-        alamat: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Kp. Mariuk
+          <MDTypography ml={2} component="a" variant="caption" color="text" fontWeight="medium">
+            |
           </MDTypography>
-        ),
-        aksi: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit | Hapus
+          <MDTypography ml={2} component="a" href="#" variant="caption" color="text" fontWeight="medium" onClick={() => onDelete(item._id)}>
+            Hapus
           </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
-        nip: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            31180398
-          </MDTypography>
-        ),
-        jabatan: <Job title="Admin" />,
-        alamat: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Kp. Gang Buntu
-          </MDTypography>
-        ),
-        aksi: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit | Hapus
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
-        nip: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            31180714
-          </MDTypography>
-        ),
-        jabatan: <Job title="Pegawai" />,
-        alamat: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Tambun Selatan
-          </MDTypography>
-        ),
-        aksi: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit | Hapus
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
-        nip: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            31180913
-          </MDTypography>
-        ),
-        jabatan: <Job title="Pegawai" />,
-        alamat: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Gandasari
-          </MDTypography>
-        ),
-        aksi: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit | Hapus
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
-        nip: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            31180487
-          </MDTypography>
-        ),
-        jabatan: <Job title="Pegawai" />,
-        alamat: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Kp. Mariuk
-          </MDTypography>
-        ),
-        aksi: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit | Hapus
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
-        nip: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            31180339
-          </MDTypography>
-        ),
-        jabatan: <Job title="Pegawai" />,
-        alamat: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Cibitung
-          </MDTypography>
-        ),
-        aksi: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit | Hapus
-          </MDTypography>
-        ),
-      },
-    ],
+        </>
+      )
+    })
+    )
+
   };
 }

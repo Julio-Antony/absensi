@@ -27,24 +27,58 @@ import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
 // Overview page components
 import Header from "layouts/profile/components/Header";
 
+// import Form from "layouts/profile/components/Form";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+// Images
+import unknown from "layouts/profile/data/foto";
+
 function Overview() {
+  const [profil, setProfil] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    axios
+      .get("/api/users/single", { headers: { "x-auth-token": token } })
+      .then((res) => {
+        setProfil(res.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          navigate("/");
+        }
+      });
+  }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
-      <Header>
+      <Header
+        defFoto={profil.foto || unknown}
+        defNama={profil.nama}
+        defJabatan={profil.jabatan}
+        defNip={profil.nip}
+        defTempat={profil.tmpt_lhr}
+        defTanggal={profil.tgl_lhr}
+        defEmail={profil.email}
+        defTelp={profil.telp}
+        defAlamat={profil.alamat}>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} xl={6} sx={{ display: "flex" }}>
               <ProfileInfoCard
                 title="Profil Saya"
                 info={{
-                  NIP: "311810714",
-                  namaLengkap: "Tina Okta Riyanti",
-                  tempatTanggalLahir: "Banjarnegara, 31/10/1999",
-                  email: "tinaoktariyanti@gmail.com",
-                  noTelepon: "089619683152",
-                  alamat: "Jl. Raya Gandasari No. 10, kec. Cikarang Barat, Kab. Bekasi",
+                  NIP: profil.nip,
+                  namaLengkap: profil.nama,
+                  TTL: `${profil.tmpt_lhr}, ${profil.tgl_lhr}`,
+                  email: profil.email,
+                  noTelepon: profil.telp,
+                  alamat: profil.alamat,
                 }}
                 action={{ route: "", tooltip: "Edit Profile" }}
                 shadow={false}

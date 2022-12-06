@@ -23,8 +23,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 
-// Login Layout
+// Layouts
 import SignIn from "layouts/authentication/sign-in";
+import EditPegawai from "layouts/edit";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -152,6 +153,7 @@ export default function App() {
       <Routes>
         {getRoutes(routes)}
         <Route exact path="/" element={<SignIn />} key="sign-in" />
+        <Route exact path="/editPegawai/:id" element={<EditPegawai />} />
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </ThemeProvider>
