@@ -120,6 +120,35 @@ router.put('/:id', auth, async (req, res) => {
     }
 })
 
+//Change Password
+router.put('/changePassword/:id', auth, async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    try {
+        const user = await Users.findOne({ _id: req.params.id })
+
+        if (!user) {
+            res.status(404).send({ msg: "Pegawai tidak ditemukan." })
+        }
+
+        // Check for email and password match
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({
+                errors: [{ msg: 'Password Salah' }],
+            });
+        }
+
+        user.password = bcrypt.hashSync(newPassword, 10) || user.password
+
+        await user.save()
+
+        res.status(200).send({ msg: "Berhasil merubah password" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+})
+
 //Update my profile
 router.put('/', auth, async (req, res) => {
     const { nip, nama, email, tmpt_lhr, tgl_lhr, jns_klmn, telp, alamat, foto } = req.body;
