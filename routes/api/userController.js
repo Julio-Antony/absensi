@@ -113,7 +113,7 @@ router.put('/:id', auth, async (req, res) => {
 
         await user.save()
 
-        res.status(200).send({ msg: "Berhasil memperbarui data" })
+        res.status(200).send({ msg: "Berhasil memperbarui data", user })
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
