@@ -163,7 +163,7 @@ router.post('/resetPassword', async (req, res) => {
 
         await user.save()
 
-        res.status(200).send({ msg: "Berhasil merubah password" })
+        res.status(200).send({ msg: "Berhasil mereset password" })
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
