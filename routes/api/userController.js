@@ -149,6 +149,27 @@ router.put('/changePassword/:id', auth, async (req, res) => {
     }
 })
 
+//Reset Password
+router.post('/resetPassword', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await Users.findOne({ email: email })
+
+        if (!user) {
+            res.status(404).send({ msg: "Pegawai tidak ditemukan." })
+        }
+
+        user.password = bcrypt.hashSync(password, 10) || user.password
+
+        await user.save()
+
+        res.status(200).send({ msg: "Berhasil merubah password" })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+})
+
 //Update my profile
 router.put('/', auth, async (req, res) => {
     const { nip, nama, email, tmpt_lhr, tgl_lhr, jns_klmn, telp, alamat, foto } = req.body;
