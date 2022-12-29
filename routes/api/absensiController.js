@@ -5,11 +5,37 @@ const auth = require('../../middleware/auth');
 require('dotenv').config();
 
 const Absensi = require('../../models/modelAbsensi');
+const User = require('../../models/modelUser');
 
 //Get All Users
 router.get('/', auth, async (req, res) => {
     try {
-        const absen = await Absensi.find({})
+        const absen = await Absensi.aggregate([
+            {
+                $lookup:
+                {
+                    from: "users",
+                    let: { pid: "$user_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ["$_id", { $toObjectId: "$$pid" }]
+                                }
+                            }
+                        }
+                    ],
+                    as: "user"
+                }
+            },
+            {
+                $set: {
+                    user: {
+                        $arrayElemAt: ["$user", 0]
+                    }
+                }
+            }
+        ])
 
         if (absen.length < 1) {
             return res.json({ msg: 'Belum ada catatan absen' })
