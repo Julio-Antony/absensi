@@ -33,6 +33,7 @@ app.use(express.urlencoded({
 app.use('/api/auth', require('./routes/api/authController'));
 app.use('/api/users', require('./routes/api/userController'));
 app.use('/api/absensi', require('./routes/api/absensiController'));
+app.use('/api/statistic', require('./routes/api/statisticController'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {

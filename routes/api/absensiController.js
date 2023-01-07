@@ -5,9 +5,8 @@ const auth = require('../../middleware/auth');
 require('dotenv').config();
 
 const Absensi = require('../../models/modelAbsensi');
-const User = require('../../models/modelUser');
 
-//Get All Users
+//Get All Absensi
 router.get('/', auth, async (req, res) => {
     try {
         const absen = await Absensi.aggregate([
