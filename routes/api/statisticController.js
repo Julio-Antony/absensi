@@ -11,7 +11,7 @@ router.get('/', auth, async (req, res) => {
     try {
         const admin = await User.find({ "jabatan": "admin" }).count()
         const pegawai = await User.find({ "jabatan": "pegawai" }).count()
-        const absen = await Absensi.find({})
+        const absen = await Absensi.find({}).sort({ createdAt: +1 })
 
         if (absen.length < 1) {
             return res.json({ msg: 'Belum ada catatan absen' })
