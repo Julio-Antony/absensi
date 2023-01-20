@@ -198,7 +198,7 @@ router.post("/resetPassword/:userId/:token", async (req, res) => {
         });
         if (!token) return res.status(400).send("Invalid link or expired");
 
-        user.password = req.body.password;
+        user.password = bcrypt.hashSync(req.body.password, 10)
         await user.save();
         await token.delete();
 
