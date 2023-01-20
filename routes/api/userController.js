@@ -182,7 +182,7 @@ router.post("/resetPassword", async (req, res) => {
     }
 });
 
-router.post("/:userId/:token", async (req, res) => {
+router.post("/resetPassword/:userId/:token", async (req, res) => {
     try {
         const schema = Joi.object({ password: Joi.string().required() });
         const { error } = schema.validate(req.body);
