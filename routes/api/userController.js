@@ -3,6 +3,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
+const Token = require("../../models/token");
+const sendEmail = require("../../utils/sendEmail");
+const crypto = require("crypto");
+const Joi = require("joi");
 require('dotenv').config();
 
 const Users = require('../../models/modelUser');
@@ -150,25 +154,60 @@ router.put('/changePassword/:id', auth, async (req, res) => {
 })
 
 //Reset Password
-router.post('/resetPassword', async (req, res) => {
-    const { email, password } = req.body;
+router.post("/resetPassword", async (req, res) => {
     try {
-        const user = await Users.findOne({ email: email })
+        const schema = Joi.object({ email: Joi.string().email().required() });
+        const { error } = schema.validate(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
 
-        if (!user) {
-            res.status(404).send({ msg: "Pegawai tidak ditemukan." })
+        const user = await User.findOne({ email: req.body.email });
+        if (!user)
+            return res.status(400).send("user with given email doesn't exist");
+
+        let token = await Token.findOne({ userId: user._id });
+        if (!token) {
+            token = await new Token({
+                userId: user._id,
+                token: crypto.randomBytes(32).toString("hex"),
+            }).save();
         }
 
-        user.password = bcrypt.hashSync(password, 10) || user.password
+        const link = `${token.token}`;
+        await sendEmail(user.email, "Reset Password", link, user.nama);
 
-        await user.save()
-
-        res.status(200).send({ msg: "Berhasil mereset password" })
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+        res.send("password reset link sent to your email account");
+    } catch (error) {
+        res.send("An error occured");
+        console.log(error);
     }
-})
+});
+
+router.post("/:userId/:token", async (req, res) => {
+    try {
+        const schema = Joi.object({ password: Joi.string().required() });
+        const { error } = schema.validate(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
+
+        const user = await User.findById(req.params.userId);
+        console.log(user)
+        if (!user) return res.status(400).send("invalid link or expired");
+
+        const token = await Token.findOne({
+            userId: user._id,
+            token: req.params.token,
+        });
+        if (!token) return res.status(400).send("Invalid link or expired");
+
+        user.password = req.body.password;
+        await user.save();
+        await token.delete();
+
+        res.send("password reset sucessfully.");
+    } catch (error) {
+        res.send("An error occured");
+        console.log(error);
+    }
+});
 
 //Update my profile
 router.put('/', auth, async (req, res) => {
