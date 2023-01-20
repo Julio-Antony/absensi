@@ -182,21 +182,20 @@ router.post("/resetPassword", async (req, res) => {
     }
 });
 
-router.post("/resetPassword/:userId/:token", async (req, res) => {
+router.post("/resetPassword/:token", async (req, res) => {
     try {
         const schema = Joi.object({ password: Joi.string().required() });
         const { error } = schema.validate(req.body);
         if (error) return res.status(400).send(error.details[0].message);
 
-        const user = await User.findById(req.params.userId);
-        console.log(user)
-        if (!user) return res.status(400).send("invalid link or expired");
-
         const token = await Token.findOne({
-            userId: user._id,
             token: req.params.token,
         });
         if (!token) return res.status(400).send("Invalid link or expired");
+
+        const user = await User.findById(token.userId);
+        console.log(user)
+        if (!user) return res.status(400).send("invalid link or expired");
 
         user.password = bcrypt.hashSync(req.body.password, 10)
         await user.save();
